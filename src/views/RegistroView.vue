@@ -36,35 +36,45 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
   data() {
     return {
       email: '',
-      generatedId: null, 
+      generatedId: null,
     };
   },
   methods: {
-    ...mapActions(['login']),
+    async registerForm() {
+      const usuarios = JSON.parse(localStorage.getItem('users')) || [];
 
-    registerForm() {
-      this.generatedId = this.generateRandomId(); 
-      
-      this.login(this.generatedId); 
+      const existeUsuario = usuarios.find(usuario => usuario.email === this.email);
 
-      localStorage.setItem('userId', this.generatedId);
+      if (existeUsuario) {
+        alert('El email ya se encuentra registrado.');
+        return;
+      }
+
+      this.generatedId = this.generateRandomId();
+
+      const nuevoUsuario = {
+        email: this.email,
+        id: this.generatedId,
+      };
+
+      usuarios.push(nuevoUsuario);
+      localStorage.setItem('users', JSON.stringify(usuarios));
+      this.email = '';
     },
 
     generateRandomId() {
-      const length = 8; 
+      const length = 8;
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let result = '';
       for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
         result += characters[randomIndex];
       }
-      return result; 
+      return result;
     },
   },
 };

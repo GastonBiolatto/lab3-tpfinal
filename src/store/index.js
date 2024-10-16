@@ -2,21 +2,37 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    userId: null,
+    currentUser: null,
   },
   getters: {
-    getUserId: (state) => state.userId,
+    currentUser: (state) => state.currentUser,
   },
   mutations: {
-    setUserId (state, id){
-      state.userId = id;
-    }
+    SET_CURRENT_USER(state, user) {
+      state.currentUser = user; 
+    },
+    CLEAR_CURRENT_USER(state) {
+      state.currentUser = null; 
+    },
   },
   actions: {
-    login({commit}, id){
-      commit('setUserId', id);
-    }
+    async login({ commit }, { id }) {
+      const users = JSON.parse(localStorage.getItem('users')) || []; 
+      const user = users.find(user => user.id === id); 
+
+      if (user) {
+        commit('SET_CURRENT_USER', user); 
+        return true; 
+      } else {
+        return false; 
+      }
+    },
+    logout({ commit }) {
+      commit('CLEAR_CURRENT_USER');
+      localStorage.removeItem('usuarioLogeado');
+    },
   },
   modules: {
-  }
-})
+    
+  },
+});
