@@ -1,7 +1,18 @@
 <template>
 
-  <router-view/>
+  <router-view />
 </template>
+<script>
+export default {
+  created() {
+    const usuarioLogeado = localStorage.getItem('usuarioLogeado');
+    if (usuarioLogeado) {
+      this.$store.dispatch('login', { id: usuarioLogeado });
+    }
+  }
+}
+</script>
+
 
 <style>
 #app {

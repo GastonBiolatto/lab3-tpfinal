@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
+import '@fortawesome/fontawesome-free/css/all.css';
+
 
 
 

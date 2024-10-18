@@ -63,7 +63,10 @@ export default {
 
       usuarios.push(nuevoUsuario);
       localStorage.setItem('users', JSON.stringify(usuarios));
+      
+      // Limpiar campos después del registro
       this.email = '';
+      alert('Usuario registrado con éxito');
     },
 
     generateRandomId() {
