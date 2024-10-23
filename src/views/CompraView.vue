@@ -24,12 +24,6 @@
                                     </router-link>
                                 </li>
                                 <li class="nav-item list-group-item">
-                                    <router-link to="/venta" class="d-flex align-items-center p-3">
-                                        <i class="fas fa-exchange-alt"></i>
-                                        <span class="ms-3 d-none d-sm-flex">Venta</span>
-                                    </router-link>
-                                </li>
-                                <li class="nav-item list-group-item">
                                     <router-link to="/historial" class="d-flex align-items-center p-3">
                                         <i class="fas fa-history"></i>
                                         <span class="ms-3 d-none d-sm-flex">Historial</span>
@@ -87,7 +81,8 @@
                             <label for="cantidad" class="form-label">Cantidad</label>
                             <input type="number" class="form-control" id="cantidad" v-model.number="cantidad" min="0" step="any">
                         </div>
-                        <button class="btn btn-success" @click="comprarMoneda">Comprar</button>
+                        <button class="btn btn-success me-2" @click="comprarMoneda">Comprar</button>
+                        <button class="btn btn-danger" @click="venderMoneda">Vender</button>
                     </div>
                 </div>
                 <div v-else>
@@ -99,7 +94,7 @@
 </template>
 
 <script>
-import apiClient from '@/services/apiClient'; // Importa tu cliente API
+import apiClient from '@/services/apiClient';
 import axios from 'axios';
 
 export default {
@@ -140,36 +135,61 @@ export default {
             if (this.textoBuscado.length > 0) {
                 this.coins = this.coins.filter(coin => coin.name.toLowerCase().includes(this.textoBuscado.toLowerCase()));
             } else {
-                this.cargarDatos(); // Restaura la lista completa si el campo de búsqueda está vacío
+                this.cargarDatos(); 
             }
         },
         async comprarMoneda() {
-            // Validaciones
             if (this.cantidad <= 0 || !this.monedaSeleccionada) {
                 alert('Por favor, ingresa una cantidad válida y selecciona una moneda.');
                 return;
             }
 
             const transactionData = {
-                user_id: this.currentUser.id, // ID del usuario logueado
+                user_id: this.currentUser.id,
                 action: "purchase",
-                crypto_code: this.monedaSeleccionada.symbol.toLowerCase(), // Código de la criptomoneda
+                crypto_code: this.monedaSeleccionada.symbol.toLowerCase(),
                 crypto_amount: this.cantidad,
-                money: (this.cantidad * this.monedaSeleccionada.current_price).toFixed(2), // Cálculo del dinero gastado
+                money: (this.cantidad * this.monedaSeleccionada.current_price).toFixed(2),
                 datetime: new Date().toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires', hour12: false })
             };
 
             try {
-                await apiClient.post('/transactions', transactionData); // Llamada a la API para guardar la compra
+                await apiClient.post('/transactions', transactionData); 
                 alert('Compra registrada con éxito!');
-                // Reinicia los campos después de la compra
                 this.monedaSeleccionada = null;
                 this.cantidad = 0;
                 this.textoBuscado = '';
-                await this.cargarDatos(); // Opcional: Recarga los datos de monedas
+                await this.cargarDatos();
             } catch (error) {
                 console.error('Error al registrar la compra:', error);
                 alert('Hubo un error al registrar la compra. Intenta nuevamente más tarde.');
+            }
+        },
+        async venderMoneda() {
+            if (this.cantidad <= 0 || !this.monedaSeleccionada) {
+                alert('Por favor, ingresa una cantidad válida y selecciona una moneda.');
+                return;
+            }
+
+            const transactionData = {
+                user_id: this.currentUser.id,
+                action: "sale",
+                crypto_code: this.monedaSeleccionada.symbol.toLowerCase(),
+                crypto_amount: this.cantidad,
+                money: (this.cantidad * this.monedaSeleccionada.current_price).toFixed(2),
+                datetime: new Date().toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires', hour12: false })
+            };
+
+            try {
+                await apiClient.post('/transactions', transactionData); 
+                alert('Venta registrada con éxito!');
+                this.monedaSeleccionada = null;
+                this.cantidad = 0;
+                this.textoBuscado = '';
+                await this.cargarDatos();
+            } catch (error) {
+                console.error('Error al registrar la venta:', error);
+                alert('Hubo un error al registrar la venta. Intenta nuevamente más tarde.');
             }
         }
     }

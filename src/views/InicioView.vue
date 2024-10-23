@@ -24,12 +24,6 @@
                                     </router-link>
                                 </li>
                                 <li class="nav-item list-group-item">
-                                    <router-link to="/venta" class="d-flex align-items-center p-3">
-                                        <i class="fas fa-exchange-alt"></i>
-                                        <span class="ms-3 d-none d-sm-flex">Venta</span>
-                                    </router-link>
-                                </li>
-                                <li class="nav-item list-group-item">
                                     <router-link to="/historial" class="d-flex align-items-center p-3">
                                         <i class="fas fa-history"></i>
                                         <span class="ms-3 d-none d-sm-flex">Historial</span>
