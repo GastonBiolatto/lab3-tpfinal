@@ -44,16 +44,13 @@ export default {
   },
   methods: {
     async login() {
-      // Despacha la acción de login a Vuex
       const success = await this.$store.dispatch('login', { id: this.idUsuario });
       
       if (success) {
         const currentUser = this.$store.getters.currentUser;
         
-        // Guarda la sesión del usuario en localStorage
         localStorage.setItem('usuarioLogeado', currentUser.id);
         
-        // Redirecciona al usuario a la página de inicio
         alert(`Bienvenido ${currentUser.name}`);
         this.$router.push('/inicio');
       } else {
