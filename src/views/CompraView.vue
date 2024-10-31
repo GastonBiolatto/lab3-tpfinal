@@ -20,7 +20,13 @@
                                 <li class="nav-item list-group-item">
                                     <router-link to="/compra" class="d-flex align-items-center p-3">
                                         <i class="fas fa-shopping-cart"></i>
-                                        <span class="ms-3 d-none d-sm-flex">Compra</span>
+                                        <span class="ms-3 d-none d-sm-flex">Compra/Venta</span>
+                                    </router-link>
+                                </li>
+                                <li class="nav-item list-group-item">
+                                    <router-link to="/transaccion" class="d-flex align-items-center p-3">
+                                        <i class="fas fa-exchange-alt"></i>
+                                        <span class="ms-3 d-none d-sm-flex">Transacciones</span>
                                     </router-link>
                                 </li>
                                 <li class="nav-item list-group-item">
@@ -30,9 +36,7 @@
                                     </router-link>
                                 </li>
                             </ul>
-                            <form class="d-flex">
-                                <a class="btn" role="button" @click="logout">Cerrar sesión</a>
-                            </form>
+                            <button type="button" class="d-flex btn btn-outline-danger" @click="logout">Cerrar sesión</button>
                         </div>
                     </div>
                 </nav>
@@ -150,7 +154,7 @@ export default {
                 crypto_code: this.monedaSeleccionada.symbol.toLowerCase(),
                 crypto_amount: this.cantidad,
                 money: (this.cantidad * this.monedaSeleccionada.current_price).toFixed(2),
-                datetime: new Date().toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires', hour12: false })
+                datetime: new Date()
             };
 
             try {

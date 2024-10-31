@@ -1,1 +1,5 @@
-<template><h1>hola</h1></template>
+<template>
+    <div>
+        hola
+    </div>
+</template>
