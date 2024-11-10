@@ -143,7 +143,7 @@ export default {
             }
         },
         async comprarMoneda() {
-            if (this.cantidad <= 0 || !this.monedaSeleccionada) {
+            if (this.cantidad <= 0.00001 || !this.monedaSeleccionada) {
                 alert('Por favor, ingresa una cantidad válida y selecciona una moneda.');
                 return;
             }
