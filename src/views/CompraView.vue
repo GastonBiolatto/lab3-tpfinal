@@ -35,6 +35,12 @@
                                         <span class="ms-3 d-none d-sm-flex">Historial</span>
                                     </router-link>
                                 </li>
+                                <li class="nav-item list-group-item">
+                                    <router-link to="/analisis" class="d-flex align-items-center p-3">
+                                        <i class="fa fa-line-chart"></i>
+                                        <span class="ms-3 d-none d-sm-flex">Análisis</span>
+                                    </router-link>
+                                </li>
                             </ul>
                             <button type="button" class="d-flex btn btn-outline-danger" @click="logout">Cerrar sesión</button>
                         </div>

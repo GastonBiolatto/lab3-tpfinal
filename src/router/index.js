@@ -6,6 +6,7 @@ import InicioView from '@/views/InicioView.vue'
 import CompraView from '@/views/CompraView.vue'
 import TransaccionView from '@/views/TransaccionView.vue'
 import HistorialView from '@/views/HistorialView.vue'
+import AnalisisView from '@/views/AnalisisView.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/historial',
     name: 'historial',
     component: HistorialView
+  },
+  {
+    path: '/analisis',
+    name: 'analisis',
+    component: AnalisisView
   }
 ]
 
