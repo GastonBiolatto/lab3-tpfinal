@@ -88,7 +88,7 @@
           <tbody>
             
             <tr v-for="(resultado, cryptoCode) in resultados" :key="cryptoCode">
-              <td>{{ cryptoCode.toUpperCase() }}</td>
+              <td>{{ cryptoCode}}</td>
               <td>
                 {{ resultado > 0 ? "+" : "" }}{{ resultado.toFixed(2) }} ARS
               </td>
@@ -170,7 +170,6 @@ export default {
       this.resultados = resultados;
     },
   },
-  estadoDeCompra() {},
 };
 </script>
 
